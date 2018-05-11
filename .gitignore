@@ -1,3 +1,7 @@
 resources/*zip
 resources/*txt
+resources/*json
+resources/*sqlite3
+resources/*bz2
+notebooks/.ipynb_checkpoints/
 .idea/*

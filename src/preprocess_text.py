@@ -18,7 +18,7 @@ def get_text_data(path_target_file: str)->str:
 
 
 def extract_pre_and_body_document(document: str)->Tuple[str, str, str]:
-    """次の規則で前書きと本文を取得する
+    """次の規則で前書きと本文を取得する。段落情報を保持するために改行は残しておく。
 
     1. 点線が出てくる前がすべて前書き
     2. 点線が２回出現した後から「底本」の記述があるところまでが本文

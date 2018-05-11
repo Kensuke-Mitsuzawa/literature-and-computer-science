@@ -28,3 +28,5 @@ install:
 	wget https://www.aozora.gr.jp/cards/000119/files/43813_ruby_17579.zip -O resources/43813_ruby_17579.zip && unzip resources/43813_ruby_17579.zip -d resources/
 	wget https://www.aozora.gr.jp/cards/000119/files/24438_ruby_11131.zip -O resources/24438_ruby_11131.zip && unzip resources/24438_ruby_11131.zip -d resources/
 	wget https://www.aozora.gr.jp/cards/000119/files/43043_ruby_17141.zip -O resources/43043_ruby_17141.zip && unzip resources/43043_ruby_17141.zip -d resources/
+
+	wget http://www.cl.ecei.tohoku.ac.jp/~m-suzuki/jawiki_vector/data/20170201.tar.bz2 -O resources/20170201.tar.bz2 && tar xf 20170201.tar.bz2
