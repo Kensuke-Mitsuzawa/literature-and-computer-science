@@ -3,5 +3,6 @@ resources/*txt
 resources/*json
 resources/*sqlite3
 resources/*bz2
+resources/entity_vector/
 notebooks/.ipynb_checkpoints/
 .idea/*
