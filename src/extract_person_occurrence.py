@@ -6,6 +6,7 @@ from typing import Dict, List, Tuple, Any
 from itertools import combinations, chain
 from collections import Counter
 import json
+import codecs
 
 
 """人物名どうしの共起によって、人物間の関係取得を試すスクリプト
@@ -54,7 +55,7 @@ def compute_jaccard_score(counter_obj_pair_co_occurrence: Counter)->List[Dict[st
         jaccard_score = pair_freq / (freq_a + freq_b - pair_freq)
         seq_jaccard_score_obj.append({"pair": t_pair, "jaccard_score": jaccard_score, "freq": pair_freq})
     else:
-        return seq_jaccard_score_obj
+        return list(sorted(seq_jaccard_score_obj, key=lambda obj: obj["jaccard_score"], reverse=True))
 
 
 def extract_person_occurrence(seq_document_object: List[Dict[str, str]],
@@ -62,10 +63,10 @@ def extract_person_occurrence(seq_document_object: List[Dict[str, str]],
     """main関数"""
     seq_paragraph_text = [p_text for doc_obj in seq_document_object for p_text in pre_process(doc_obj["body"])]
     seq_pair_person_name_only = Counter(chain.from_iterable([
-        extract_person_co_occurrence(p_text, tokenizer_obj, [("名詞", "固有名詞","人名")])
+        extract_person_co_occurrence(p_text, tokenizer_obj, [("名詞", "固有名詞", "人名")])
         for p_text in seq_paragraph_text]))
     seq_pair_person_name_pronoun = Counter(chain.from_iterable([
-        extract_person_co_occurrence(p_text, tokenizer_obj, [("名詞", "固有名詞","人名"), ("名詞", "代名詞")])
+        extract_person_co_occurrence(p_text, tokenizer_obj, [("名詞", "固有名詞", "人名"), ("名詞", "代名詞")])
         for p_text in seq_paragraph_text]))
     seq_jaccard_person_name_only = compute_jaccard_score(seq_pair_person_name_only)
     seq_jaccard_person_name_pronoun = compute_jaccard_score(seq_pair_person_name_pronoun)
@@ -75,5 +76,10 @@ def extract_person_occurrence(seq_document_object: List[Dict[str, str]],
 if __name__ == "__main__":
     path_input_data = '../resources/cleaned_text.json'
     seq_input_object = json.loads(open(path_input_data, 'r').read())
-    mecab_obj = MecabWrapper(dictType="user", pathUserDictCsv="../user_dic_nakazima.txt")
+    mecab_obj = MecabWrapper(dictType="all", pathUserDictCsv="../user_dic_nakazima.csv")
     seq_jaccard_person_name_only, seq_jaccard_person_name_pronoun = extract_person_occurrence(seq_input_object, mecab_obj)
+
+    with codecs.open('../processed_resources/jaccard_person_name_only.json', 'w', 'utf-8') as f:
+        f.write(json.dumps(seq_jaccard_person_name_only, ensure_ascii=False))
+    with codecs.open('../processed_resources/jaccard_person_name_pronoun.json', 'w', 'utf-8') as f:
+        f.write(json.dumps(seq_jaccard_person_name_pronoun, ensure_ascii=False))
