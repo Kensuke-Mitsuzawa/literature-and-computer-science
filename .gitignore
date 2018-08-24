@@ -7,3 +7,6 @@ resources/entity_vector/
 notebooks/.ipynb_checkpoints/
 .idea/*
 *dict
+analysis_notes/resources/20170201.tar.bz2
+analysis_notes/resources/entity_vector/*bin
+analysis_notes/resources/entity_vector/*txt

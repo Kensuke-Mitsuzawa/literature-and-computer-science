@@ -1,0 +1,12 @@
+resources/raw_data/*zip
+resources/raw_text/*txt
+resources/cleaned_text.json
+resources/*zip
+resources/*txt
+resources/*json
+resources/*sqlite3
+resources/*bz2
+resources/entity_vector/
+notebooks/.ipynb_checkpoints/
+.idea/*
+*dict
